@@ -1,0 +1,47 @@
+<odoo>
+    <record id="view_product_group_tree" model="ir.ui.view">
+        <field name="name">product.group.tree</field>
+        <field name="model">product.group</field>
+        <field name="arch" type="xml">
+            <tree string="Product Groups">
+                <field name="name"/>
+                <field name="parent_id"/>
+                <field name="total_products"/>
+                <field name="total_value"/>
+                <field name="average_price"/>
+                <field name="is_active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_product_group_form" model="ir.ui.view">
+        <field name="name">product.group.form</field>
+        <field name="model">product.group</field>
+        <field name="arch" type="xml">
+            <form string="Product Group">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="parent_id"/>
+                        <field name="product_ids"/>
+                        <field name="creation_date"/>
+                        <field name="is_active"/>
+                        <field name="manager_id"/>
+                        <field name="total_value"/>
+                        <field name="total_products"/>
+                        <field name="average_price"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_group_action" model="ir.actions.act_window">
+        <field name="name">Product Groups</field>
+        <field name="res_model">product.group</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_product_group" name="Product Groups" parent="menu_product_mart_root" action="product_group_action" sequence="2"/>
+</odoo>
