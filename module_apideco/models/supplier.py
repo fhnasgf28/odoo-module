@@ -45,11 +45,25 @@ class Installment(models.Model):
     amount = fields.Float(string='Amount', required=True)
     due_date = fields.Date(string='Due Date', required=True)
     paid = fields.Boolean(string='Paid', default=False)
-    payment_amount = fields.Float(string='Payment Amount')
+    payment_amount = fields.Float(string='Payment Amount', default=1.0)
+    installment_count = fields.Integer(string='Number of Installments')
+    remaining_amount = fields.Float(string='Remaining Amount', compute='_compute_remaining_amount', store=True)
 
     @api.depends('supplier_id', 'amount')
     def _compute_display_name(self):
         for record in self:
             record.display_name = '%s (%s)' % (
             record.supplier_id.name, record.due_date) if record.supplier_id.name else record.due_date
+
+    @api.constrains('payment_amount')
+    def _check_payment_amount_non_zero(self):
+        for installment in self:
+            if installment.payment_amount <= 0:
+                raise ValidationError('Payment amount must be greater than zero when paid.')
+
+    @api.depends('amount', 'payment_amount', 'installment_count')
+    def _compute_remaining_amount(self):
+        for installment in self:
+            total_paid = installment.payment_amount * installment.installment_count
+            installment.remaining_amount = installment.amount - total_paid
 

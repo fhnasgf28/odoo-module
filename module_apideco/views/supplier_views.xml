@@ -68,6 +68,8 @@
                         <field name="due_date"/>
                         <field name="paid"/>
                         <field name="payment_amount" attrs="{'invisible': [('paid', '=', False)]}"/>
+                        <field name="installment_count" attrs="{'invisible': [('paid', '=', False)]}"/>
+                        <field name="remaining_amount" readonly="1" attrs="{'invisible': [('paid', '=', False)]}"/>
                     </group>
                 </sheet>
             </form>
