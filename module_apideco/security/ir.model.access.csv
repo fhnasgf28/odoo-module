@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_manage_product,access.manage.product,model_manage_product,,1,1,1,1
 access_supplier,access.supplier,model_supplier,,1,1,1,1
 access_product_group,access.product.group,model_product_group,,1,1,1,1
+access_installment,access.installment,model_installment,,1,1,1,1

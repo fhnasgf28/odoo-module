@@ -24,7 +24,50 @@
                         <field name="phone"/>
                         <field name="email"/>
                         <field name="address"/>
-                        <field name="products_supplied_ids"/>
+                        <field name="has_installments"/>
+                    </group>
+                    <notebook>
+                        <page string="Installments">
+                            <field name="installment_ids">
+                                <tree editable="bottom">
+                                    <field name="amount"/>
+                                    <field name="due_date"/>
+                                    <field name="paid"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_installment_tree" model="ir.ui.view">
+        <field name="name">installment.tree</field>
+        <field name="model">installment</field>
+        <field name="arch" type="xml">
+            <tree string="Installments">
+                <field name="supplier_id"/>
+                <field name="amount"/>
+                <field name="due_date"/>
+                <field name="paid"/>
+                <field name="payment_amount" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_installment_form" model="ir.ui.view">
+        <field name="name">installment.form</field>
+        <field name="model">installment</field>
+        <field name="arch" type="xml">
+            <form string="Installment">
+                <sheet>
+                    <group>
+                        <field name="supplier_id"/>
+                        <field name="amount"/>
+                        <field name="due_date"/>
+                        <field name="paid"/>
+                        <field name="payment_amount" attrs="{'invisible': [('paid', '=', False)]}"/>
                     </group>
                 </sheet>
             </form>
@@ -36,5 +79,14 @@
         <field name="res_model">supplier</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem id="menu_product_supplier" name="Supplier" parent="menu_product_mart_root" action="supplier_action" sequence="10"/>
+
+    <record id="installment_action" model="ir.actions.act_window">
+        <field name="name">Installment</field>
+        <field name="res_model">installment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_product_supplier" name="Supplier" parent="menu_product_mart_root" action="supplier_action"
+              sequence="10"/>
+    <menuitem id="menu_installment" name="Installments" parent="menu_product_mart_root" action="installment_action" sequence="2"/>
 </odoo>
