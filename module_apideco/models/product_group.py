@@ -1,4 +1,6 @@
-from odoo import models, fields
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
+
 
 class ProductGroup(models.Model):
     _name = 'product.group'
@@ -31,3 +33,9 @@ class ProductGroup(models.Model):
             total_price = sum(product.price for product in group.product_ids)
             total_products = len(group.product_ids)
             group.average_price = total_price / total_products if total_products > 0 else 0
+
+    @api.constrains('name')
+    def _check_unique_name(self):
+        for group in self:
+            if self.search_count([('name', '=', group.name), ('id', '!=', group.id)]) > 0:
+                raise ValidationError('A product group with the same name already exists.')
