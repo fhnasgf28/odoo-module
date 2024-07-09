@@ -25,7 +25,7 @@ class ManageProduct(models.Model):
     purchase_date = fields.Date(string='Purchase Date')
     expiry_date = fields.Date(string='Expiry Date')
     barcode = fields.Char(string='Barcode', compute='_compute_no_barcode')
-    location = fields.Char(string='Location')
+    location = fields.Many2one('res.country',string='Location')
     active = fields.Boolean(string='Active', default=True)
 
     @api.depends('code_barang')

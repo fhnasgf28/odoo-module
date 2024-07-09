@@ -33,7 +33,18 @@
                             <field name="total_products"/>
                             <field name="average_price"/>
                             <field name="is_active"/>
-                            <field name="product_ids"/>
+                        </group>
+                        <group>
+                            <field name="product_ids">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="price"/>
+                                <field name="stock"/>
+                                <field name="code_barang"/>
+                                <field name="kelompok_barang"/>
+                                <field name="barcode"/>
+                            </tree>
+                        </field>
                         </group>
                     </group>
                 </sheet>
