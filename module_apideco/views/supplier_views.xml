@@ -36,4 +36,5 @@
         <field name="res_model">supplier</field>
         <field name="view_mode">tree,form</field>
     </record>
+    <menuitem id="menu_product_supplier" name="Supplier" parent="menu_product_mart_root" action="supplier_action" sequence="10"/>
 </odoo>

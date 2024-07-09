@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Sale Order Inherit",
+    'name': "Epideco",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -26,6 +26,8 @@
     'data': [
         'security/ir.model.access.csv',
         'views/manage_product_views.xml',
+        'views/product_group_views.xml',
+        'views/supplier_views.xml',
 
     ],
     # only loaded in demonstration mode
