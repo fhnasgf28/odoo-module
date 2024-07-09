@@ -17,10 +17,17 @@ class ProductGroup(models.Model):
     average_price = fields.Float(string='Average Price', compute='_compute_average_price')
 
     def _compute_total_value(self):
-        pass
+        for group in self:
+            total_value = sum(product.price * product.stock for product in group.product_ids)
+            group.total_value = total_value
 
     def _compute_total_products(self):
-        pass
+        for group in self:
+            total_products = len(group.product_ids)
+            group.total_products = total_products
 
     def _compute_average_price(self):
-        pass
+        for group in self:
+            total_price = sum(product.price for product in group.product_ids)
+            total_products = len(group.product_ids)
+            group.average_price = total_price / total_products if total_products > 0 else 0
