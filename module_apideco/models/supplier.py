@@ -23,3 +23,8 @@ class Supplier(models.Model):
             ])
             if duplicate_suppliers:
                 raise ValidationError('A supplier with the same name and email already exists.')
+
+    @api.depends('name', 'phone')
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = '%s (%s)' % (record.name, record.phone) if record.phone else record.name

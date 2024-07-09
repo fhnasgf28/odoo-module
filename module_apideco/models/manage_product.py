@@ -40,3 +40,8 @@ class ManageProduct(models.Model):
     def _onchange_code_barang(self):
         if self.code_barang and len(self.code_barang) > 5:
             raise ValidationError('Kode Barang tidak boleh lebih dari 5 angka')
+
+    @api.depends('name', 'code_barang')
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = '%s (%s)' % (record.name, record.code_barang) if record.code_barang else record.name
