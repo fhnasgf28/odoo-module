@@ -25,7 +25,7 @@ class ManageProduct(models.Model):
     purchase_date = fields.Date(string='Purchase Date')
     expiry_date = fields.Date(string='Expiry Date')
     barcode = fields.Char(string='Barcode', compute='_compute_no_barcode')
-    location = fields.Many2one('res.country',string='Location')
+    location = fields.Many2one('res.country', string='Location')
     active = fields.Boolean(string='Active', default=True)
 
     @api.depends('code_barang')
@@ -45,3 +45,8 @@ class ManageProduct(models.Model):
     def _compute_display_name(self):
         for record in self:
             record.display_name = '%s (%s)' % (record.name, record.code_barang) if record.code_barang else record.name
+
+    _sql_constraints = [
+        ('code_barang_unique', 'UNIQUE(code_barang)', 'code barang must be unique'),
+        ('name_unique', 'UNIQUE(name)', 'Product name must be unique'),
+    ]

@@ -50,6 +50,27 @@
         </field>
     </record>
 
+<!--    search view-->
+    <record id="view_manage_product_search" model="ir.ui.view">
+        <field name="name">manage.product.search</field>
+        <field name="model">manage.product</field>
+        <field name="arch" type="xml">
+            <search string="Search Products">
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="barcode"/>
+                <field name="price"/>
+                <field name="stock"/>
+                <field name="kelompok_barang"/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="active" string="Active" domain="[]" context="{'group_by':'active'}"/>
+                    <filter name="category" string="Category" domain="[]" context="{'group_by':'category_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record id="manage_product_action" model="ir.actions.act_window">
         <field name="name">Products</field>
         <field name="res_model">manage.product</field>
